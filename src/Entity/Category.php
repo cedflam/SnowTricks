@@ -25,6 +25,7 @@ class Category
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Tricks", mappedBy="idCategory")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $idTricks;
 

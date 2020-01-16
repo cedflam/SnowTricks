@@ -55,6 +55,11 @@ class Tricks
      */
     private $videos;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $sentence;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -204,6 +209,18 @@ class Tricks
                 $video->setIdTricks(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSentence(): ?string
+    {
+        return $this->sentence;
+    }
+
+    public function setSentence(string $sentence): self
+    {
+        $this->sentence = $sentence;
 
         return $this;
     }
