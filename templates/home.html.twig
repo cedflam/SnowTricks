@@ -7,90 +7,46 @@
 		<div class="container" id="home-tricks">
 
 			<div class="row">
-				<div class="col-md-3">
-					<div class="card mb-3 mt-5">
-						<div class="card-header">
-							<h4>titre</h4>
-						</div>
-						<div class="card-body">
-							Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptas ipsa iste architecto odit, magnam beatae velit ipsam voluptatibus nemo suscipit!
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="card mb-3 mt-5">
-						<div class="card-header">
-							<h4>titre</h4>
-						</div>
-						<div class="card-body">
-							Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptas ipsa iste architecto odit, magnam beatae velit ipsam voluptatibus nemo suscipit!
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="card mb-3 mt-5">
-						<div class="card-header">
-							<h4>titre</h4>
-						</div>
-						<div class="card-body">
-							Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptas ipsa iste architecto odit, magnam beatae velit ipsam voluptatibus nemo suscipit!
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="card mb-3 mt-5">
-						<div class="card-header">
-							<h4>titre</h4>
-						</div>
-						<div class="card-body">
-							Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptas ipsa iste architecto odit, magnam beatae velit ipsam voluptatibus nemo suscipit!
+				{% for figure in figures %}
+
+					<div class="col-md-3">
+						<div class="card mb-3 mt-5">
+							<div class="card-header">
+
+								<a href="">
+									<img src="{{figure.picture}}" alt="Photos de figure de snowboard" id="imgFiguresAccueil">
+								</a>
+								<p>
+									<strong>{{figure.name}}</strong>
+								</p>
+								<p>
+									<a href="">
+										<i class="fas fa-pen"></i>
+									</a>
+									<a href="">
+										<i class="fas fa-trash"></i>
+									</a>
+								</p>
+							</div>
+							<div class="card-body">
+								Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptas ipsa iste architecto odit, magnam beatae velit ipsam voluptatibus nemo suscipit!
+							</div>
+							<div class="card-footer">
+								<a href="" class="badge badge-primary">
+									{{figure.idCategory.nameCategory}}
+								</a>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="card mb-3 mt-5">
-						<div class="card-header">
-							<h4>titre</h4>
-						</div>
-						<div class="card-body">
-							Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptas ipsa iste architecto odit, magnam beatae velit ipsam voluptatibus nemo suscipit!
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="card mb-3 mt-5">
-						<div class="card-header">
-							<h4>titre</h4>
-						</div>
-						<div class="card-body">
-							Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptas ipsa iste architecto odit, magnam beatae velit ipsam voluptatibus nemo suscipit!
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="card mb-3 mt-5">
-						<div class="card-header">
-							<h4>titre</h4>
-						</div>
-						<div class="card-body">
-							Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptas ipsa iste architecto odit, magnam beatae velit ipsam voluptatibus nemo suscipit!
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="card mb-3 mt-5">
-						<div class="card-header">
-							<h4>titre</h4>
-						</div>
-						<div class="card-body">
-							Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptas ipsa iste architecto odit, magnam beatae velit ipsam voluptatibus nemo suscipit!
-						</div>
-					</div>
-				</div>
-				<a href="#" class="btn btn-primary mb-3 mx-auto">
+				{% endfor %}
+
+			</div>
+			<div class="container-fluid text-center">
+				<a href="#" class="btn btn-primary mt-3">
 					<i class="fas fa-arrow-alt-circle-down"></i>
 					Plus de Tricks</a>
 			</div>
+
 
 		</div>
 		<div class="container-fluid mt-auto ">
@@ -99,5 +55,4 @@
 			</a>
 		</div>
 	</div>
-
 {% endblock %}

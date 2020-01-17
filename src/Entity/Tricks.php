@@ -60,6 +60,11 @@ class Tricks
      */
     private $sentence;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $picture;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -221,6 +226,18 @@ class Tricks
     public function setSentence(string $sentence): self
     {
         $this->sentence = $sentence;
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(string $picture): self
+    {
+        $this->picture = $picture;
 
         return $this;
     }
