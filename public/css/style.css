@@ -19,6 +19,12 @@
     background-size: cover;
 }
 
+/* Taille de la video de la page d'accueil */
+#videoAccueil{
+    width:300px;
+    height:200px;
+}
+
 /* Taille des images de la page d'accueil et animation  */
 #imgFiguresAccueil{
     width:210px;
@@ -28,9 +34,29 @@
 }
 
 #imgFiguresAccueil:hover {
-    -webkit-transform: rotate(+180deg);
-    transform: rotate(+180deg);
+    -webkit-transform: rotate(+5deg);
+    transform: rotate(+5deg);
   }
+
+/* Animation des badges de l'annuaire de la page d'accueil */
+.category{
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    background-color:rgb(84, 137, 236);
+    color: white;
+}
+.category:hover{
+    -webkit-transform: rotate(-5deg);
+    transform: rotate(-5deg);
+    background-color: blue;
+}
+
+/* Paramètre hidden qui permet de faire disparaitre les tricks
+qui n'appartiennent pas à une catégorie lors du tri sur la 
+page d'accueil */
+.hidden{
+    display:none !important;
+}
   
   
   

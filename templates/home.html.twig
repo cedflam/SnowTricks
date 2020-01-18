@@ -3,17 +3,58 @@
 {% endblock %}
 
 {% block body %}
+	<!-- Header -->
+	<header class="masthead">
+		<div class="container d-flex h-100 align-items-center">
+			<div class="mx-auto text-center">
+				<h1 class="mx-auto my-0 text-uppercase">SnowTricks</h1>
+				<div class="text-white-50 mx-auto mt-2 mb-5" id="videoAccueil">
+
+					<iframe width="300" height="200" src="https://www.youtube.com/embed/KoHzXi7Usl8" frameborder="0" allow="accelerometer; autoplay=1; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+				</div>
+				<div class="container-fluid mt-auto ">
+					<a href="#home-tricks" class="js-scroll-trigger">
+						<i class="fas fa-arrow-down fa-3x"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+	</header>
+	<!--Body-->
 	<div id="bg-home-tricks">
 		<div class="container" id="home-tricks">
-			
-			<div class="row">
+			<div class="container-fluid text-center pt-3">
+				<p class="text-white">Trier par catégorie !</p>
+				<div>
+					<span id="tous">
+						<a href="#tous" class="badge badge-warning category">Tous</a>
+					</span>
+					<span id="grab">
+						<a href="#grab" class="badge badge-warning category">Grab</a>
+					</span>
+					<span id="slide">
+						<a href="#slide" class="badge badge-warning category">Slide</a>
+					</span>
+					<span id="rotation">
+						<a href="#rotation" class="badge badge-warning category">Rotation</a>
+					</span>
+					<span id="flip">
+						<a href="#flip" class="badge badge-warning category">Flip</a>
+					</span>
+					<span id="old-school">
+						<a href="#old-school" class="badge badge-warning category">Old-School</a>
+					</span>
+				</div>
+			</div>
+			<div class="row ">
 				{% for figure in figures %}
 
-					<div class="col-md-3">
-						<div class="card mb-3 mt-5">
+					<div class="col-md-3 gallery ">
+						<div class="card mb-3 mt-5 {{figure.idCategory.nameCategory | lower}}">
 							<div class="card-header">
 
-								<a href="">
+								<a href="" >
 									<img src="{{figure.picture}}" alt="Photos de figure de snowboard" id="imgFiguresAccueil">
 								</a>
 								<p>
@@ -29,29 +70,32 @@
 								</p>
 							</div>
 							<div class="card-body">
-								Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptas ipsa iste architecto odit, magnam beatae velit ipsam voluptatibus nemo suscipit!
+								{{figure.sentence}}...
 							</div>
-							<div class="card-footer">
-								<a href="" class="badge badge-primary">
+							<div class="card-footer text-center">
+								<span class="badge badge-primary">
 									{{figure.idCategory.nameCategory}}
-								</a>
-							</div>
+								</span>
+							</a>
 						</div>
 					</div>
-				{% endfor %}
-
-			</div>
-			<div class="container-fluid text-center">
-				<a href="#" class="btn btn-primary mt-3">
-					<i class="fas fa-arrow-alt-circle-down"></i>
-					Plus de Tricks</a>
-
+				</div>
+			{% endfor %}
 
 		</div>
-		<div class="container-fluid mt-auto ">
+		<div class="container-fluid mt-auto mb-5">
 			<a href="#home-tricks" class="js-scroll-trigger">
 				<i class="fas fa-arrow-up fa-3x float-right"></i>
 			</a>
 		</div>
+		<div class="container-fluid text-center">
+			<a href="#" class="btn btn-primary mt-3 mb-3">
+				<i class="fas fa-arrow-alt-circle-down"></i>
+				Plus de Tricks</a>
+		</div>
 	</div>
+
+{% block javascripts %}
+	<script src="js/app.js"></script>
+{% endblock %}
 {% endblock %}
