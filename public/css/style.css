@@ -55,8 +55,10 @@
 qui n'appartiennent pas à une catégorie lors du tri sur la 
 page d'accueil */
 .hidden{
-    display:none !important;
+    display:none;
 }
+
+
   
   
   

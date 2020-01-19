@@ -1,3 +1,4 @@
+
 // Ce code permet de faire le tri par catégories sur la page d'accueil
 //Je gère l'affichage de tous les tricks
 $('#tous').click(function (event) {
@@ -23,6 +24,7 @@ $('#slide').click(function (event) {
     $(this).addClass('current');
     $('.gallery').find('div.card').removeClass('hidden');
     $('.gallery').find('div.card:not(.slide)').addClass('hidden');
+
 });
 //Je gère l'affichage des rotation
 $('#rotation').click(function (event) {
@@ -44,4 +46,19 @@ $('#old-school').click(function (event) {
     $(this).addClass('current');
     $('.gallery').find('div.card').removeClass('hidden');
     $('.gallery').find('div.card:not(.old-school)').addClass('hidden');
+});
+
+
+//Permet d'afficher les tricks par 4 et d'en 
+//afficher plus en cliquant sur le bouton
+$(".gallery").slice(0, 4).show();
+if ($(".gallery:hidden").length != 0) {
+    $("#loadMore").show();
+}
+$("#loadMore").on('click', function (e) {
+    e.preventDefault();
+    $(".gallery:hidden").slice(0, 4).slideDown();
+    if ($(".gallery:hidden").length == 0) {
+        $("#loadMore").fadeOut('fast');
+    }
 });

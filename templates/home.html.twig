@@ -47,14 +47,14 @@
 					</span>
 				</div>
 			</div>
-			<div class="row ">
+			<div class="row text-justify ">
 				{% for figure in figures %}
 
-					<div class="col-md-3 gallery ">
+					<div class="col-md-3 gallery hidden">
 						<div class="card mb-3 mt-5 {{figure.idCategory.nameCategory | lower}}">
 							<div class="card-header">
 
-								<a href="" >
+								<a href="">
 									<img src="{{figure.picture}}" alt="Photos de figure de snowboard" id="imgFiguresAccueil">
 								</a>
 								<p>
@@ -88,14 +88,16 @@
 				<i class="fas fa-arrow-up fa-3x float-right"></i>
 			</a>
 		</div>
-		<div class="container-fluid text-center">
-			<a href="#" class="btn btn-primary mt-3 mb-3">
-				<i class="fas fa-arrow-alt-circle-down"></i>
-				Plus de Tricks</a>
+		<div class="container-fluid text-center mb-5">
+			<a href="#home-tricks" class="btn btn-primary" id="loadMore">
+				voir plus...
+			</a>
 		</div>
+
 	</div>
 
-{% block javascripts %}
-	<script src="js/app.js"></script>
 {% endblock %}
-{% endblock %}
+
+	{% block javascripts %}
+		<script src="js/app.js"></script>
+	{% endblock %}
