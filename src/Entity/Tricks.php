@@ -65,6 +65,16 @@ class Tricks
      */
     private $picture;
 
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $addDate;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $editDate;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -238,6 +248,30 @@ class Tricks
     public function setPicture(string $picture): self
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    public function getAddDate(): ?\DateTimeInterface
+    {
+        return $this->addDate;
+    }
+
+    public function setAddDate(\DateTimeInterface $addDate): self
+    {
+        $this->addDate = $addDate;
+
+        return $this;
+    }
+
+    public function getEditDate(): ?\DateTimeInterface
+    {
+        return $this->editDate;
+    }
+
+    public function setEditDate(?\DateTimeInterface $editDate): self
+    {
+        $this->editDate = $editDate;
 
         return $this;
     }

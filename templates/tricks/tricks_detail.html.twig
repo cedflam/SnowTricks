@@ -8,39 +8,107 @@
 		<div class="container d-flex h-100 align-items-center">
 			<div class="mx-auto text-center">
 				<h1 class="mx-auto my-0 text-uppercase">{{figure.name}}</h1>
-				<div class="row d-flex justify-content-center">
-					{% for image in images %}
-						<div class="col-md-2 ml-3 mt-5">
+				<div class="row d-flex justify-content-center mt-5">
+					<p class="text-white">
+						{{figure.contentTricks}}</p>
+					<div class="container-fluid d-flex justify-content-center mt-5 row">
+						<h3 class="badge badge-primary  ">
+							Catégorie :
+						</h3>
+						<h3 class="badge badge-warning ">
+							{{figure.idCategory.nameCategory}}
+						</h3>
+						<h3 class="badge badge-primary   ml-3">
+							Création :
+						</h3>
+						<h3 class="badge badge-warning ">
+							{{figure.addDate | date("d/m/Y")}}
+						</h3>
+						{% if figure.editDate %}
+							<h3 class="badge badge-primary   ml-3">
+								Modification :
+							</h3>
+							<h3 class="badge badge-warning ">
+								{{figure.editDate | date("d/m/Y")}}
+							</h3>
+						{% else %}
+							<h3 class="badge badge-primary   ml-3">
+								Modification :
+							</h3>
+							<h3 class="badge badge-warning ">
+								Jamais modifié !
+							</h3>
+						{% endif %}
 
-							<div class="text-white-50 mx-auto mt-2 mb-5 img-fluid" >
-								<img src=" {{image.addressImg}} " alt="photos de figures">
+					</div>
+
+				</div>
+				<div class=" mt-3 d-flex justify-content-center row">
+					{% for image in images %}
+						<div class="col-md-2 ml-5 mt-2">
+
+							<div class="text-white-50  img-fluid ">
+							<a href="{{image.addressImg}}">	<img src=" {{image.addressImg}} " alt="photos de figures" id="image" > </a>
+							</div>
+						</div>
+					{% endfor %}
+					{% for video in videos %}
+						<div class="col-md-2 mt-3 ml-5 embed-responsive embed-responsive-16by9">
+							<iframe width="560" height="315" src="{{video.addressVid}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+			
+		</div>
+	</header>
+
+	<body class="text-center">
+		<div id="bg-comments-tricks">
+			<h1 class=" text-white p-2"> <i class="fas fa-snowboarding"></i> <strong>EXPRIMEZ VOUS SUR CE TRICKS !</strong> <i class="fas fa-snowman"></i> </h1>
+			<div class="container mt-3 form-group">
+				<form >
+					<div class="form-row">
+						<div class="col">
+							<input type="text" class="form-control mt-3" placeholder="Ajouter un commentaire...">
+						</div>
+					</div>
+						<button type="submit" class="btn btn-info btn-sm mt-3">Poster</button>
+				</form>
+			</div>
+			<div class="container mt-5">
+				<div class="row">
+					{% for comment in comments %}
+						<div class="col-md-12 mt-3 comments hidden">
+							<div class="card">
+								<div class="card-header bg-dark text-white">
+									{{comment.idAuthor.username}}
+									le,
+									{{comment.dateComment | date ("d/m/Y")}}
+								</div>
+								<div class="card-body bg-light">
+									{{comment.contentComment}}
+								</div>
 
 							</div>
 						</div>
 					{% endfor %}
-                    {% for video in videos %}
-                        <div class="col-md-2 ml-3 mt-5">
-
-							<div class="text-white-50 mx-auto mt-2 mb-5 " >
-								{{video.addressVid | raw}}
-
-							</div>
-						</div>
-                    {% endfor %}
-                <p class="text-white"> {{figure.contentTricks}}</p>
-                <div class="container-fluid d-flex justify-content-center">
-                <h2 class = "badge badge-primary mr-3 mb-5"> Catégorie : </h2>
-                <h2 class = "badge badge-warning mb-5"> {{figure.idCategory.nameCategory}} </h2>
-                </div>
+					<div class="container-fluid text-center mb-3 mt-3">
+						<a href="#home-tricks" class="btn btn-info" id="loadMore">
+							voir plus...
+						</a>
+					</div>
 				</div>
+
 			</div>
 		</div>
-	</header>
+		{# Modal #}
 
 	
+	</body>
 
 {% endblock %}
 
 {% block javascripts %}
-	<script src="js/app.js"></script>
+	<script src="/js/appComment.js"></script>
 {% endblock %}

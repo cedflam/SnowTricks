@@ -19,6 +19,22 @@ class CommentRepository extends ServiceEntityRepository
         parent::__construct($registry, Comment::class);
     }
 
+    /**
+     * Permet de trier les commentaires par date descendante
+     *
+     * @return Comment[] Returns an array of Comment objects
+     */
+    public function findByDate($value)
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.idTricks = :val')
+            ->setParameter('val', $value)
+            ->orderBy('c.dateComment', 'DESC')
+            ->setMaxResults(100)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Comment[] Returns an array of Comment objects
     //  */

@@ -8,7 +8,7 @@
 		<div class="container d-flex h-100 align-items-center">
 			<div class="mx-auto text-center">
 				<h1 class="mx-auto my-0 text-uppercase">SnowTricks</h1>
-				<div class="text-white-50 mx-auto mt-2 mb-5" id="videoAccueil">
+				<div class="text-white-50 mx-auto mt-5 mb-5 embed-responsive embed-responsive-16by9">
 
 					<iframe width="300" height="200" src="https://www.youtube.com/embed/KoHzXi7Usl8" frameborder="0" allow="accelerometer; autoplay=1; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -82,22 +82,24 @@
 				</div>
 			{% endfor %}
 
-		</div>
-		<div class="container-fluid mt-auto mb-5">
-			<a href="#home-tricks" class="js-scroll-trigger">
-				<i class="fas fa-arrow-up fa-3x float-right"></i>
-			</a>
+			<div class="container-fluid mt-auto mb-5">
+				<a href="#home-tricks" class="js-scroll-trigger">
+					<i class="fas fa-arrow-up fa-3x float-right"></i>
+				</a>
+			</div>
 		</div>
 		<div class="container-fluid text-center mb-5">
-			<a href="#home-tricks" class="btn btn-primary" id="loadMore">
+			<a href="#home-tricks" class="btn btn-info" id="loadMore">
 				voir plus...
 			</a>
 		</div>
 
 	</div>
 
+
+
 {% endblock %}
 
-	{% block javascripts %}
-		<script src="js/app.js"></script>
-	{% endblock %}
+{% block javascripts %}
+	<script src="js/appHome.js"></script>
+{% endblock %}
