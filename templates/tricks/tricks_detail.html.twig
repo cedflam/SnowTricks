@@ -1,0 +1,46 @@
+{% extends "base.html.twig" %}
+{% block title %}Tricks détail
+{% endblock %}
+
+{% block body %}
+	<!-- Header -->
+	<header class="masthead2">
+		<div class="container d-flex h-100 align-items-center">
+			<div class="mx-auto text-center">
+				<h1 class="mx-auto my-0 text-uppercase">{{figure.name}}</h1>
+				<div class="row d-flex justify-content-center">
+					{% for image in images %}
+						<div class="col-md-2 ml-3 mt-5">
+
+							<div class="text-white-50 mx-auto mt-2 mb-5 img-fluid" >
+								<img src=" {{image.addressImg}} " alt="photos de figures">
+
+							</div>
+						</div>
+					{% endfor %}
+                    {% for video in videos %}
+                        <div class="col-md-2 ml-3 mt-5">
+
+							<div class="text-white-50 mx-auto mt-2 mb-5 " >
+								{{video.addressVid | raw}}
+
+							</div>
+						</div>
+                    {% endfor %}
+                <p class="text-white"> {{figure.contentTricks}}</p>
+                <div class="container-fluid d-flex justify-content-center">
+                <h2 class = "badge badge-primary mr-3 mb-5"> Catégorie : </h2>
+                <h2 class = "badge badge-warning mb-5"> {{figure.idCategory.nameCategory}} </h2>
+                </div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	
+
+{% endblock %}
+
+{% block javascripts %}
+	<script src="js/app.js"></script>
+{% endblock %}

@@ -52,13 +52,13 @@ $('#old-school').click(function (event) {
 //Permet d'afficher les tricks par 4 et d'en 
 //afficher plus en cliquant sur le bouton
 $(".gallery").slice(0, 4).show();
-if ($(".gallery:hidden").length != 0) {
+if ($(".gallery:hidden").length !== 0) {
     $("#loadMore").show();
 }
 $("#loadMore").on('click', function (e) {
     e.preventDefault();
     $(".gallery:hidden").slice(0, 4).slideDown();
-    if ($(".gallery:hidden").length == 0) {
+    if ($(".gallery:hidden").length === 0) {
         $("#loadMore").fadeOut('fast');
     }
 });
