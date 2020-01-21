@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+{% block title %}Inscription
+{% endblock %}
+{% form_theme form _self %}
+{% block body %}
+
+	<!-- Header -->
+	<body class="masthead">
+		<div class="container d-flex h-100 align-items-center">
+			<div class="mx-auto">
+				<h1 class="mx-auto my-0 text-uppercase">Inscription</h1>
+				<div class="container mt-3  d-flex justify-content-center text-white bg-dark p-3">
+                <div class="col-md-8">
+					{{ form_start(form) }}
+
+					{{ form_widget(form) }}
+					<button type="submit" class="btn btn-success">Valider</button>
+					{{ form_end(form) }}
+                </div>
+				</div>
+			</div>
+		</div>
+	</body>
+	
+
+{% endblock %}

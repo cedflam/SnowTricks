@@ -2,10 +2,14 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Tricks;
+use App\Entity\Comment;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -43,6 +47,31 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="idAuthor")
      */
     private $comments;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $firstName;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $lastName;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Image(
+     *  minWidth = 200,
+     *  maxWidth = 400,
+     *  minHeight = 200,
+     *  maxHeight = 400,
+     *  allowLandscape = false,
+     *  allowPortrait = false,
+     *  minWidthMessage = "L'image est trop petite ! Insérez une image entre 200 et 400 pixels ",
+     *  maxWidthMessage = "L'image est trop grande ! Insérez une image entre 200 et 400 pixels"
+     * )
+     */
+    private $imgProfile;
 
     public function __construct()
     {
@@ -171,6 +200,42 @@ class User implements UserInterface
                 $comment->setIdAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(string $firstName): self
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): self
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    public function getImgProfile()
+    {
+        return $this->imgProfile;
+    }
+
+    public function setImgProfile($imgProfile)
+    {
+        $this->imgProfile = $imgProfile;
 
         return $this;
     }
