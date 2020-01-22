@@ -4,6 +4,7 @@ namespace App\Controller;
 
 
 
+use App\Entity\Tricks;
 use App\Repository\TricksRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,7 +14,7 @@ class HomeController extends AbstractController
     /**
      * Fonction qui permet de récupérer l'ensemble des figures
      * 
-     * @Route("/{page<\d+>?1}", name="home")
+     * @Route("/", name="home")
      */
     public function index(TricksRepository $repo)
     {        

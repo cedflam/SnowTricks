@@ -73,8 +73,14 @@ class AccountController extends AbstractController
             $file = $user->getImgProfile();
             //Je crypte le nom de l'image
             $fileName = $encoder->encodePassword($user, $user->getImgProfile()).'.'.$file->guessExtension();
-            //Je déplace l'image dans le dossier
-            $file->move($this->getParameter('upload_directory'), $fileName);
+            //Je capture une erreur éventuelle
+            try{
+                //Je déplace l'image dans le dossier
+                //upload_directory est configuré dans config/services.yaml
+                $file->move($this->getParameter('upload_directory'), $fileName);
+            }catch(FileException $e){
+                //Code si besoin 
+            }
             //J'enregistre le nom de l'image cryptée en bdd
             $user->setImgProfile($fileName);
 
@@ -91,7 +97,7 @@ class AccountController extends AbstractController
             //Message flash
             $this->addFlash(
                 'warning',
-                "Il ne reste plus qu'à valider votre inscription, consultez vos emails !"
+                "Il ne reste plus qu'à valider votre inscription ! Consultez vos emails !"
             );
 
         } 
