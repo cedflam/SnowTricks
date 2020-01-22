@@ -4,15 +4,19 @@ namespace App\Entity;
 
 use App\Entity\Tricks;
 use App\Entity\Comment;
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity("email", message="Cet email existe déjà ! ")
+ * @UniqueEntity("username", message="Ce pseudo existe déjà !")
  */
 class User implements UserInterface
 {
@@ -30,11 +34,13 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email()
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=6, max=255, minMessage="Le mot de passe doit faire 6 caractères minimum !")
      */
     private $hash;
 

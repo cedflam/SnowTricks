@@ -22,7 +22,7 @@ class Comment
     private $contentComment;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $dateComment;
 
@@ -36,6 +36,20 @@ class Comment
      * @ORM\JoinColumn(nullable=false)
      */
     private $idTricks;
+
+    /**
+     * Callback appelé à chaque fois que l'on crée un commentaire
+     * 
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     *
+     * @return void
+     */
+    public function __construct(){
+            
+            $this->dateComment = new \DateTime('NOW');
+        
+    }
 
     public function getId(): ?int
     {

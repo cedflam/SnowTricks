@@ -33,8 +33,7 @@ class RegistrationType extends AbstractType
             ])
             ->add('imgProfile', FileType::class,[
                 'label'=> "Image de profile (Type: jpg / png)",
-               
-                
+              
             ])
         ;
     }

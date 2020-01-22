@@ -35,6 +35,7 @@ class AccountController extends AbstractController
             'hasError'=>$error !== null,
             'username'=>$username
         ]);
+        
     }
 
     /**
@@ -65,7 +66,7 @@ class AccountController extends AbstractController
         //Je lance ma requete
         $form->handleRequest($request);
         //Si le formulaire est soumis et s'il est valide
-        if($form->isSubmitted() && $form->isValid()){
+        if($form->isSubmitted() && $form->isValid()){            
 
             /******  Je traite l'image  ********/
             //!!! Enlever le type String ainsi que le Self du getter et setter concerné
@@ -79,7 +80,10 @@ class AccountController extends AbstractController
                 //upload_directory est configuré dans config/services.yaml
                 $file->move($this->getParameter('upload_directory'), $fileName);
             }catch(FileException $e){
-                //Code si besoin 
+                $this->addFlash(
+                    'danger',
+                    "Une erreur s'est produite lors de l'upload de l'image : ".$e->getMessage()
+                );
             }
             //J'enregistre le nom de l'image cryptée en bdd
             $user->setImgProfile($fileName);
@@ -96,10 +100,12 @@ class AccountController extends AbstractController
 
             //Message flash
             $this->addFlash(
-                'warning',
+                'success',
                 "Il ne reste plus qu'à valider votre inscription ! Consultez vos emails !"
-            );
-
+            );            
+            
+            //Redirection vers la page de connexion
+            return $this->redirectToRoute('home');
         } 
 
         //J'affiche la page 

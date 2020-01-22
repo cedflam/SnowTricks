@@ -13,6 +13,7 @@
 					<iframe width="300" height="200" src="https://www.youtube.com/embed/KoHzXi7Usl8" frameborder="0" allow="accelerometer; autoplay=1; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 				</div>
+				
 				<div class="container-fluid mt-auto ">
 					<a href="#home-tricks" class="js-scroll-trigger">
 						<i class="fas fa-arrow-down fa-3x"></i>
@@ -60,6 +61,7 @@
 								<p>
 									<strong>{{figure.name}}</strong>
 								</p>
+								{% if app.user %}								
 								<p>
 									<a href="">
 										<i class="fas fa-pen"></i>
@@ -68,6 +70,7 @@
 										<i class="fas fa-trash"></i>
 									</a>
 								</p>
+								{% endif %}
 							</div>
 							<div class="card-body">
 								{{figure.sentence}}...
@@ -95,7 +98,6 @@
 		</div>
 
 	</div>
-
 
 
 {% endblock %}

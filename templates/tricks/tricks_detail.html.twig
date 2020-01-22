@@ -48,7 +48,9 @@
 						<div class="col-md-3  ml-5 mt-2">
 
 							<div class="text-white-50  img-fluid ">
-							<a href="{{image.addressImg}}">	<img src=" {{image.addressImg}} " alt="photos de figures" id="image" > </a>
+								<a href="{{image.addressImg}}">
+									<img src=" {{image.addressImg}} " alt="photos de figures" id="image">
+								</a>
 							</div>
 						</div>
 					{% endfor %}
@@ -58,27 +60,36 @@
 						</div>
 					{% endfor %}
 				</div>
-				
-				
+
+
 			</div>
-			
+
 		</div>
 	</header>
 
 	<body class="">
 		<div id="bg-comments-tricks">
-			<h1 class=" text-white text-center p-2"> <i class="fas fa-snowboarding"></i> <strong>EXPRIMEZ VOUS SUR CE TRICKS !</strong> <i class="fas fa-snowman"></i> </h1>
-			<div class="container mt-3 form-group">
-				<form >
-					<div class="form-row">
-						<div class="col">
-							<input type="text" class="form-control mt-3" placeholder="Ajouter un commentaire...">
+			{% if app.user %}
+				<h1 class=" text-white text-center p-2">
+					<i class="fas fa-snowboarding"></i>
+					<strong>EXPRIMEZ VOUS SUR CE TRICKS !</strong>
+					<i class="fas fa-snowman"></i>
+				</h1>
+				<div class="container mt-3 form-group text-white">
+				{{form_start (form) }}
+				{{form_widget (form) }}
+					{# <form>
+						<div class="form-row">
+							<div class="col">
+								<input type="text" class="form-control mt-3" placeholder="Ajouter un commentaire...">
+							</div>
 						</div>
-					</div>
+					</form> #}
 						<button type="submit" class="btn btn-info btn-sm mt-3 mx-auto d-block ">Poster</button>
-				</form>
-			</div>
-			<div class="container mt-5">
+				{{form_end (form) }}
+				</div>
+			{% endif %}
+			<div class="container">
 				<div class="row">
 					{% for comment in comments %}
 						<div class="col-md-12 mt-3 comments hidden">
@@ -87,7 +98,7 @@
 									<img src="/img/imgProfile/{{comment.idAuthor.imgProfile}}" alt="" id="imgProfile">
 									{{comment.idAuthor.username}}
 									le,
-									{{comment.dateComment | date ("d/m/Y")}}
+									{{comment.dateComment | date ("d/m/Y à H:i:s", "Europe/Paris")}}
 								</div>
 								<div class="card-body bg-light">
 									{{comment.contentComment}}
@@ -107,7 +118,7 @@
 		</div>
 		{# Modal #}
 
-	
+
 	</body>
 
 {% endblock %}
