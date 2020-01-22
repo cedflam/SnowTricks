@@ -71,18 +71,21 @@ class Tricks
     /**
      * @ORM\Column(type="date")
      */
-    private $addDate;
+    private $addDate;    
 
     /**
      * @ORM\Column(type="date", nullable=true)
      */
     private $editDate;
 
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->images = new ArrayCollection();
         $this->videos = new ArrayCollection();
+        $this->addDate = new \DateTime('NOW');
+        
     }
 
     public function getId(): ?int
