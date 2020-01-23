@@ -28,7 +28,7 @@ class TricksController extends AbstractController
     public function addFigure(Request $request, EntityManagerInterface $manager)
     {
         //Je crée un nouvel objet Tricks
-        $tricks = new Tricks();
+        $tricks = new Tricks();        
         //Je crée le formulaire 
         $form = $this->createForm(FigureType::class, $tricks);  
         //Je lance la requete 
@@ -40,6 +40,11 @@ class TricksController extends AbstractController
             foreach ($tricks->getImages() as $image) {
                 $image->setIdTricks($tricks);
                 $manager->persist($image);
+            }
+            //Je boucle sur les videos du formulaire
+            foreach ($tricks->getVideos() as $video) {
+                $video->setIdTricks($tricks);
+                $manager->persist($video);
             }
             //Je lie le tricks à l'utilisateur connecté 
             $tricks->setIdAuthor($this->getUser());
@@ -56,7 +61,9 @@ class TricksController extends AbstractController
             );
 
             //Redirection 
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('tricks',[
+                'id'=> $tricks->getId()
+            ]);
 
         }
         
@@ -73,7 +80,7 @@ class TricksController extends AbstractController
      * @Route("/tricks/{id}", name="tricks")
      * 
      */
-    public function findFigure(Request $request, EntityManagerInterface $manager, CommentRepository $commentRepo, Tricks $tricks, $id)
+    public function findFigure(Request $request, EntityManagerInterface $manager, CommentRepository $commentRepo, Tricks $tricks)
     {
         /* *******************Je gère l'ajout de commentaires********* */
 
@@ -99,6 +106,8 @@ class TricksController extends AbstractController
                 'success',
                 "Commentaire ajouté !"
             );
+
+           
         }
 
         //J'affiche la vue
@@ -117,12 +126,55 @@ class TricksController extends AbstractController
     /**
      * Permet de modifier une figure existante
      * 
-     * 
+     * @Route("/tricks/{id}/edit", name="tricks_edit")
      *
-     * @return void
+     * @return Response
      */
-    public function editFigure()
+    public function editFigure(Tricks $tricks, Request $request, EntityManagerInterface $manager)
     {
+         //Je crée le formulaire 
+         $form = $this->createForm(FigureType::class, $tricks);  
+         //Je lance la requete 
+         $form->handleRequest($request);
+
+         //Je vérifie le formulaire 
+        if($form->isSubmitted() && $form->isValid()){
+            
+            //Je boucle sur les images du formulaire
+            foreach ($tricks->getImages() as $image) {
+                $image->setIdTricks($tricks);
+                $manager->persist($image);
+            }
+            //Je boucle sur les videos du formulaire
+            foreach ($tricks->getVideos() as $video) {
+                $video->setIdTricks($tricks);
+                $manager->persist($video);
+            }
+            //Je lie le tricks à l'utilisateur connecté 
+            $tricks->setIdAuthor($this->getUser());
+
+            //Je persist 
+            $manager->persist($tricks);
+            //Je lance l'enregistrement
+            $manager->flush();
+
+            //Message flash 
+            $this->addflash(
+                'success',
+                "La modification est enregistrée !"
+            );
+
+            //Redirection 
+            return $this->redirectToRoute('tricks',[
+                'id'=>$tricks->getId()
+            ]);
+
+        }
+
+        return $this->render('tricks/tricks_edit.html.twig',[        
+            'form'=>$form->createView(),
+            'figure'=> $tricks
+        ]);
     }
 
 

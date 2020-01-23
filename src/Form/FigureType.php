@@ -28,22 +28,27 @@ class FigureType extends AbstractType
                 'label'=> "Description de la figure"
             ])
             ->add('picture', UrlType::class,[
-                'label'=> "Photo de présentation"
+                'label'=> "Photo de présentation",
+                'attr'=> [
+                    'placeholder'=> " Exemple : https://image.shutterstock.com/image-photo/snowboarder-jumping-through-air-deep-260nw-256525987.jpg"
+                ]
             ])
             ->add('idCategory', EntityType::class,[
+                'label'=> "Catégorie",
                 'class'=> Category::class,
                 'choice_label'=> function ($category){
                     return $category->getNameCategory();
                 }
             ])
             ->add('images', CollectionType::class,[
-                'entry_type'=>UrlType::class,
-                'allow_add'=>true,
-                'allow_delete'=> true
+                'entry_type'=>ImageType::class,
+                'allow_add'=> true,
+                'allow_delete'=> true,
+               
             ])
             ->add('videos', CollectionType::class,[
-                'entry_type'=>UrlType::class,
-                'allow_add'=>true,
+                'entry_type'=>VideoType::class,
+                'allow_add'=> true,
                 'allow_delete'=> true
             ])
             

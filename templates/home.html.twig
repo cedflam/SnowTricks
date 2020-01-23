@@ -61,7 +61,7 @@
 								<p>
 									<strong>{{figure.name}}</strong>
 								</p>
-								{% if app.user %}								
+								{% if app.user and app.user == figure.idAuthor %}								
 								<p>
 									<a href="">
 										<i class="fas fa-pen"></i>

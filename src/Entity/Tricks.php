@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
+
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TricksRepository")
@@ -23,11 +25,23 @@ class Tricks
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *  min=3, 
+     *  max=30, 
+     *  minMessage="Le nom de la figure doit faire plus de 3 caractères",
+     *  maxMessage="Le nom de la figure doit faire moins de 30 caractères"
+     * )
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(
+     *  min=50,
+     *  max=500,
+     *  minMessage="Le contenu doit faire plus de 50 caractères",
+     *  maxMessage="Le contenu doit faire moins de 500 caractères"
+     * )
      */
     private $contentTricks;
 
@@ -50,16 +64,24 @@ class Tricks
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="idTricks", orphanRemoval=true)
+     * @Assert\Valid()
      */
     private $images;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Video", mappedBy="idTricks", orphanRemoval=true)
+     * Assert\Valid()
      */
     private $videos;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *  min=10,
+     *  max=50,
+     *  minMessage="L'introduction doit faire plus de 10 caractères",
+     *  maxMessage="L'introduction dot faire moins de 50 caractères"
+     * )
      */
     private $sentence;
 

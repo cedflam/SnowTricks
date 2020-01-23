@@ -1,16 +1,16 @@
 {% extends "base.html.twig" %}
-{% block title %}Créer une figure
-{% endblock %}
+{% block title %}Modification d'une figure{% endblock %}
 
 {# Permet de parametrer les champs de mon choix (images/videos) #}
 {% form_theme form 'tricks/_collection.html.twig' %}
 
 {% block body %}
-	<!-- Header -->
+
+    <!-- Header -->
 	<header class="masthead">
 		<div class="container d-flex h-100 align-items-center">
 			<div class="mx-auto text-center">
-				<h1 class="mx-auto my-0 text-uppercase">Nouvelle Figure</h1>
+				<h1 class="mx-auto my-0 text-uppercase">Modifier {{figure.name}}</h1>
 				<div class="text-white-50 mx-auto "></div>
 				<div class="container-fluid mt-3 ">
 					<a href="#form-add-tricks" class="js-scroll-trigger">
@@ -34,23 +34,17 @@
 							{{form_widget(form)}}
 							<button type="submit" class="btn btn-success">Valider</button>
 							{{form_end(form)}}
-
-
 						</div>
-
 					</div>
 				</div>
 
 			</div>
 		</body>
 
-	{% endblock %}
-
-	
+{% endblock %}	
 
 	{# JQuery pour l'ajout des champs image et video #}
 	{% block javascripts %}
 		<script src="/js/addImage.js"></script>
 		<script src="/js/addVideo.js"></script>
 	{% endblock %}
-
