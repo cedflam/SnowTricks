@@ -19,22 +19,17 @@ class TricksRepository extends ServiceEntityRepository
         parent::__construct($registry, Tricks::class);
     }
 
-    // /**
-    //  * @return Tricks[] Returns an array of Tricks objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * Permet de récupérer les tricks triés par categorie
+     *
+     * @return void
+     */
+    public function findByCategory()
     {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        return $this->findBy(array(), array('idCategory' => 'ASC'));
     }
-    */
+
+
 
     /*
     public function findOneBySomeField($value): ?Tricks

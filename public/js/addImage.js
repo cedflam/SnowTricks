@@ -1,5 +1,6 @@
 //Permet d'ajouter un nouveau champs image 
 $('#add-image').click(function(){
+   
     //Je récupère le nombre de champs
     const index = +$('#widgets-counter').val();
     //Je récupère le prototype des entrées
@@ -25,7 +26,8 @@ function handleDeleteButton(){
 //Permet de mettre à jour le compteur 
 function updateCounter(){
     const count = +$('#figure_images div.form-group').length;
-    $('#widget-counter').val(count);
+    console.log(count);
+    $('#widgets-counter').val(count);
 }
 
 updateCounter();

@@ -6,6 +6,8 @@
 {% form_theme form 'tricks/_collection.html.twig' %}
 
 {% block body %}
+{% if app.user %}
+
 	<!-- Header -->
 	<header class="masthead">
 		<div class="container d-flex h-100 align-items-center">
@@ -43,7 +45,20 @@
 
 			</div>
 		</body>
-
+{% else %}
+		<!-- Header -->
+	<header class="masthead">
+		<div class="container d-flex h-100 align-items-center">
+			<div class="mx-auto text-center">
+				<h1 class="mx-auto my-0 text-uppercase">Accès interdit</h1>
+				<div class="text-white-50 mx-auto bg-danger p-5 mt-3">
+					<h3>Vous devez être connecté pour afficher cette page !</h3>
+				</div>
+				
+			</div>
+		</div>
+	</header>
+{% endif %}
 	{% endblock %}
 
 	

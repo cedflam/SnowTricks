@@ -1,47 +1,65 @@
 {% extends "base.html.twig" %}
-{% block title %}Modification d'une figure{% endblock %}
+{% block title %}Modification d'une figure
+{% endblock %}
 
 {# Permet de parametrer les champs de mon choix (images/videos) #}
 {% form_theme form 'tricks/_collection.html.twig' %}
 
 {% block body %}
 
-    <!-- Header -->
-	<header class="masthead">
-		<div class="container d-flex h-100 align-items-center">
-			<div class="mx-auto text-center">
-				<h1 class="mx-auto my-0 text-uppercase">Modifier {{figure.name}}</h1>
-				<div class="text-white-50 mx-auto "></div>
-				<div class="container-fluid mt-3 ">
-					<a href="#form-add-tricks" class="js-scroll-trigger">
-						<i class="fas fa-arrow-down fa-3x"></i>
-					</a>
-				</div>
-			</div>
-		</div>
-	</header>
-
-	<body>
-		<div id="form-add-tricks">
-			<div id="bg-comments-tricks">
-				<div class="row">
-					<div class="mx-auto col-md-8">
-						<h2 class="text-white mt-5">
-							<i class="fas fa-snowboarding"></i>
-							Complétez le formulaire</h2>
-						<div class="form-group text-white ">
-							{{form_start(form)}}
-							{{form_widget(form)}}
-							<button type="submit" class="btn btn-success">Valider</button>
-							{{form_end(form)}}
-						</div>
+	{% if app.user and app.user == figure.idAuthor %}
+		<!-- Header -->
+		<header class="masthead">
+			<div class="container d-flex h-100 align-items-center">
+				<div class="mx-auto text-center">
+					<h1 class="mx-auto my-0 text-uppercase">Modifier
+						<br>
+						{{figure.name}}</h1>
+					<div class="text-white-50 mx-auto "></div>
+					<div class="container-fluid mt-3 ">
+						<a href="#form-add-tricks" class="js-scroll-trigger">
+							<i class="fas fa-arrow-down fa-3x"></i>
+						</a>
 					</div>
 				</div>
-
 			</div>
-		</body>
+		</header>
 
-{% endblock %}	
+		<body>
+			<div id="form-add-tricks">
+				<div id="bg-comments-tricks">
+					<div class="row">
+						<div class="mx-auto col-md-8">
+							<h2 class="text-white mt-5">
+								<i class="fas fa-snowboarding"></i>
+								Complétez le formulaire</h2>
+							<div class="form-group text-white ">
+								{{form_start(form)}}
+								{{form_widget(form)}}
+								<button type="submit" class="btn btn-success">Valider</button>
+								{{form_end(form)}}
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</body>
+		{% else %}
+			<!-- Header -->
+			<header class="masthead">
+				<div class="container d-flex h-100 align-items-center">
+					<div class="mx-auto text-center">
+						<h1 class="mx-auto my-0 text-uppercase">Accès interdit</h1>
+						<div class="text-white-50 mx-auto bg-danger p-5 mt-3">
+							<h3>Vous n'êtes pas l'auteur de cette figure !</h3>
+						</div>
+
+					</div>
+				</div>
+			</header>
+		{% endif %}
+
+	{% endblock %}
 
 	{# JQuery pour l'ajout des champs image et video #}
 	{% block javascripts %}

@@ -22,8 +22,8 @@ $('#grab').click(function (event) {
 $('#slide').click(function (event) {
     event.preventDefault();
     $(this).addClass('current');
-    $('.gallery').find('div.card').removeClass('hidden');
-    $('.gallery').find('div.card:not(.slide)').addClass('hidden');
+    $('.gallery').find('div.card').removeClass('hidden ');
+    $('.gallery').find('div.card:not(.slide)').addClass('hidden ');
 
 });
 //Je gère l'affichage des rotation
@@ -37,8 +37,8 @@ $('#rotation').click(function (event) {
 $('#flip').click(function (event) {
     event.preventDefault();
     $(this).addClass('current');
-    $('.gallery').find('div.card').removeClass('hidden');
-    $('.gallery').find('div.card:not(.flip)').addClass('hidden');
+    $('.gallery').find('div.card').removeClass('hidden ');
+    $('.gallery').find('div.card:not(.flip)').addClass('hidden ');
 });
 //Je gère l'affichage des old school
 $('#old-school').click(function (event) {
@@ -49,15 +49,15 @@ $('#old-school').click(function (event) {
 });
 
 
-//Permet d'afficher les tricks par 4 et d'en 
+//Permet d'afficher les tricks par 10 et d'en 
 //afficher plus en cliquant sur le bouton
-$(".gallery").slice(0, 4).show();
+$(".gallery").slice(0, 10).show();
 if ($(".gallery:hidden").length !== 0) {
     $("#loadMore").show();
 }
 $("#loadMore").on('click', function (e) {
     e.preventDefault();
-    $(".gallery:hidden").slice(0, 4).slideDown();
+    $(".gallery:hidden").slice(0, 10).slideDown();
     if ($(".gallery:hidden").length === 0) {
         $("#loadMore").fadeOut('fast');
     }

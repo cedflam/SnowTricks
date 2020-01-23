@@ -32,20 +32,10 @@
 	<body id="page-top">
 
 		{% include "partials/header.html.twig" %}
-		{# Messages flashs #}
-		{% for label, messages in app.flashes %}
-			<div class="col-md-12 float-left text-center">
-				<div class="alert-{{ label }} ">
-					{% for message in messages %}
-						<p>
-							{{message | raw}}
-						</p>
-					{% endfor %}
-				</div>
-			</div>
-		{% endfor %}
+		
 
 		{% block body %}{% endblock %}
+
 
 		{% include "partials/footer.html.twig" %}
 

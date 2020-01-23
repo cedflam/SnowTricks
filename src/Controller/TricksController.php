@@ -20,9 +20,11 @@ class TricksController extends AbstractController
 
     /**
      * Permet d'ajouter une nouvelle figure
+     * 
+     * @Route("/tricks/add", name="tricks_add")
      *
-     *@Route("/tricks/add", name="tricks_add")
-     *
+     * @param Request $request
+     * @param EntityManagerInterface $manager
      * @return Response
      */
     public function addFigure(Request $request, EntityManagerInterface $manager)
@@ -75,10 +77,15 @@ class TricksController extends AbstractController
 
 
     /**
-     * Permet d'afficher le détail d'un tricks
+     * Permet d'afficher le détail d'une figure 
      * 
      * @Route("/tricks/{id}", name="tricks")
-     * 
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @param CommentRepository $commentRepo
+     * @param Tricks $tricks
+     * @return Response
      */
     public function findFigure(Request $request, EntityManagerInterface $manager, CommentRepository $commentRepo, Tricks $tricks)
     {
@@ -105,9 +112,7 @@ class TricksController extends AbstractController
             $this->addFlash(
                 'success',
                 "Commentaire ajouté !"
-            );
-
-           
+            );           
         }
 
         //J'affiche la vue
@@ -124,10 +129,13 @@ class TricksController extends AbstractController
 
 
     /**
-     * Permet de modifier une figure existante
+     * Permet de modifier une figure
      * 
      * @Route("/tricks/{id}/edit", name="tricks_edit")
      *
+     * @param Tricks $tricks
+     * @param Request $request
+     * @param EntityManagerInterface $manager
      * @return Response
      */
     public function editFigure(Tricks $tricks, Request $request, EntityManagerInterface $manager)
@@ -179,12 +187,27 @@ class TricksController extends AbstractController
 
 
     /**
-     * Permet de supprimer une figure existante
+     * Permet de supprimer une figure 
      * 
+     * @Route("/tricks/{id}/delete", name="tricks_delete")
      *
-     * @return void
+     * @param Tricks $tricks
+     * @param EntityManagerInterface $manager
+     * @return Response
      */
-    public function deleteFigure()
+    public function deleteFigure(Tricks $tricks, EntityManagerInterface $manager)
     {
+        //Demande de suppression de la figure passée en paramètre
+        $manager->remove($tricks);
+        //Je lance la requete de suppression 
+        $manager->flush();
+        //J'affiche un message flash
+        $this->addFlash(
+            'success',
+            "La figure à bien été supprimée !"
+        );
+
+        //J'affiche la vue
+        return $this->redirectToRoute('home');
     }
 }

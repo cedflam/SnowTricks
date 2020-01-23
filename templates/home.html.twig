@@ -7,6 +7,7 @@
 	<header class="masthead">
 		<div class="container d-flex h-100 align-items-center">
 			<div class="mx-auto text-center">
+			{% include "partials/flash.html.twig" %}
 				<h1 class="mx-auto my-0 text-uppercase">SnowTricks</h1>
 				<div class="text-white-50 mx-auto mt-5 mb-5 embed-responsive embed-responsive-16by9">
 
@@ -55,7 +56,7 @@
 						<div class="card mb-3 mt-5 {{figure.idCategory.nameCategory | lower}}">
 							<div class="card-header">
 
-								<a href="{{path('tricks', {'id' : figure.id})}}">
+								<a href="{{ path ('tricks', {'id' : figure.id }) }}">
 									<img src="{{figure.picture}}" alt="Photos de figure de snowboard" id="imgFiguresAccueil">
 								</a>
 								<p>
@@ -63,10 +64,10 @@
 								</p>
 								{% if app.user and app.user == figure.idAuthor %}								
 								<p>
-									<a href="">
+									<a href=" {{ path ('tricks_edit', { 'id' : figure.id }) }} ">
 										<i class="fas fa-pen"></i>
 									</a>
-									<a href="">
+									<a href="{{ path ('tricks_delete', { 'id' : figure.id }) }}">
 										<i class="fas fa-trash"></i>
 									</a>
 								</p>
