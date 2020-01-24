@@ -63,3 +63,4 @@ class FigureType extends AbstractType
         ]);
     }
 }
+

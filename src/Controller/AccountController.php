@@ -2,20 +2,23 @@
 
 namespace App\Controller;
 
+
 use App\Entity\User;
 use App\Form\RegistrationType;
+use App\Repository\UserRepository;
+use Symfony\Component\Mime\Email;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Mailer\Transport\Smtp\EsmtpTransport;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
-use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
-use Symfony\Component\HttpFoundation\File\MimeType\ExtensionGuesser;
-
+use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 class AccountController extends AbstractController
 {
@@ -121,5 +124,126 @@ class AccountController extends AbstractController
         return $this->render('account/registration.html.twig',[
             'form'=> $form->createView()
         ]);
+    }
+
+    /**
+     * Permet de gérer l'oublis du mot de passe par l'envoie d'un email
+     * 
+     * @Route("/forgot", name="account_forgot")
+     *
+     * @return Response
+     */
+    public function forgotPassword(
+        Request $request,
+        MailerInterface $mailer, 
+        TokenGeneratorInterface $tokenGenerator,
+        EntityManagerInterface $manager,
+        UserRepository $repo){
+        
+        //condition
+        if($request->isMethod('POST')){
+            
+           
+            //Je récupère l'email posté
+            $email = $request->get('email');
+    
+            //Je vais chercher l'email de l'user avec l'email posté
+            $user = $repo->findOneBy(['email' => $email]);
+            
+            
+            //Condition si l'email n'est pas trouvé
+            if($user === null){
+                //Message flash
+                $this->addFlash(
+                    'danger',
+                    "L'email saisi n'existe pas !"
+                );
+                //Redirection 
+                return $this->redirectToRoute('account_login');
+            }
+
+            //Je génère un token 
+            $token = $tokenGenerator->generateToken();
+            //Je capture une erreur éventuelle 
+            try{
+                //Je stocke le nouveau token dans l'objet User
+                $user->setToken($token);
+                //Je persist
+                $manager->persist($user);
+                //J'enregistre en bdd
+                $manager->flush();
+                
+            }catch(\Exception $e){
+                $this->addFlash('warning', $e->getMessage());
+                return $this->redirectToRoute('home');
+            }
+
+            //Je génère l'url 
+            $url = $this->generateUrl('account_reset_password', array('token'=>$token), UrlGeneratorInterface::ABSOLUTE_URL);
+            //Je crée le message
+            $email = (new Email())
+                        ->from('cedflam@gmail.com')
+                        ->to($user->getEmail())
+                        ->subject( "Réinitialisation de votre mot de passe sur SnowTricks !")    
+                        ->text("Bonjour, voici le token permettant de réinitialiser votre mot de passe : ".$url)
+                    ;
+            //J'envoie le message
+            $mailer->send($email);
+            
+            //Message flash 
+            $this->addFlash('success', "Consultez vos emails !");
+
+            //Redirection
+            return $this->redirectToRoute('home');
+
+        }
+
+        return $this->render('account/forgot_password.html.twig');
+    }
+
+    /**
+     * Permet de réinitialiser le mot de passe
+     * 
+     * @Route("/reset_password/{token}", name="account_reset_password")
+     *
+     * @return void
+     */
+    public function resetPassword(
+        Request $request, 
+        $token, 
+        UserRepository $repo,
+        EntityManagerInterface $manager,
+        UserPasswordEncoderInterface $encoder){
+
+            //Condition
+            if ($request->isMethod('POST')) {
+               
+                //Je récupère le token
+                $user = $repo->findOneBy(['token' => $token]);
+                
+                //Si le token est vide 
+                if ($user === null) {
+                    $this->addFlash('danger', 'Token Inconnu');
+                    return $this->redirectToRoute('home');
+                }
+                //Je supprime le token
+                $user->setToken(null)
+                     ->setHash($encoder->encodePassword($user, $request->request->get('password')));
+                //Je persist
+                $manager->persist($user);
+                //J'enregistre en bdd
+                $manager->flush();
+                
+                //Message flash
+                $this->addFlash('success', 'Mot de passe mis à jour');
+                //Redirection
+                return $this->redirectToRoute('home');
+
+            }else {
+                //Affichage de la vue
+                return $this->render('account/reset_password.html.twig', ['token' => $token]);
+            }
+        //Affichage de la vue
+        return $this->render('account/reset_password.html.twig');
     }
 }
