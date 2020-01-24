@@ -69,21 +69,30 @@ class AccountController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){            
 
             /******  Je traite l'image  ********/
+
             //!!! Enlever le type String ainsi que le Self du getter et setter concerné
             //Je récupère le nom de l'image
             $file = $user->getImgProfile();
-            //Je crypte le nom de l'image
-            $fileName = $encoder->encodePassword($user, $user->getImgProfile()).'.'.$file->guessExtension();
-            //Je capture une erreur éventuelle
-            try{
-                //Je déplace l'image dans le dossier
-                //upload_directory est configuré dans config/services.yaml
-                $file->move($this->getParameter('upload_directory'), $fileName);
-            }catch(FileException $e){
-                $this->addFlash(
-                    'danger',
-                    "Une erreur s'est produite lors de l'upload de l'image : ".$e->getMessage()
-                );
+            //Si le champs est vide je mets une l'image par défaut
+            if(empty($file)){
+
+                $fileName = ('profilDefaut.png');
+
+            }else{
+
+                //Je crypte le nom de l'image
+                $fileName = $encoder->encodePassword($user, $user->getImgProfile()).'.'.$file->guessExtension();
+                //Je capture une erreur éventuelle
+                try{
+                    //Je déplace l'image dans le dossier
+                    //upload_directory est configuré dans config/services.yaml
+                    $file->move($this->getParameter('upload_directory'), $fileName);
+                }catch(FileException $e){
+                    $this->addFlash(
+                        'danger',
+                        "Une erreur s'est produite lors de l'upload de l'image : ".$e->getMessage()
+                    );
+                }
             }
             //J'enregistre le nom de l'image cryptée en bdd
             $user->setImgProfile($fileName);

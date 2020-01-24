@@ -26,7 +26,6 @@ function handleDeleteButton(){
 //Permet de mettre à jour le compteur 
 function updateCounter(){
     const count = +$('#figure_videos div.form-group').length;
-    console.log(count);
     $('#widgets-counter').val(count);
 }
 

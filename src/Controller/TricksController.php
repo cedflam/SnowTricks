@@ -29,15 +29,16 @@ class TricksController extends AbstractController
      */
     public function addFigure(Request $request, EntityManagerInterface $manager)
     {
+
         //Je crée un nouvel objet Tricks
-        $tricks = new Tricks();        
+        $tricks = new Tricks();
         //Je crée le formulaire 
-        $form = $this->createForm(FigureType::class, $tricks);  
+        $form = $this->createForm(FigureType::class, $tricks);
         //Je lance la requete 
         $form->handleRequest($request);
         //Je vérifie le formulaire 
-        if($form->isSubmitted() && $form->isValid()){
-            
+        if ($form->isSubmitted() && $form->isValid()) {
+
             //Je boucle sur les images du formulaire
             foreach ($tricks->getImages() as $image) {
                 $image->setIdTricks($tricks);
@@ -48,8 +49,14 @@ class TricksController extends AbstractController
                 $video->setIdTricks($tricks);
                 $manager->persist($video);
             }
-            //Je lie le tricks à l'utilisateur connecté 
+            //Je lie le tricks à l'utilisateur connecté et je mets à jour la date d'édition
             $tricks->setIdAuthor($this->getUser());
+            
+            //Je verifie le champs Picture (image de présentation)
+            //S'il est vide j'attribue une image par défaut 
+            if(empty($tricks->getPicture())){
+                $tricks->setPicture('https://static.thenounproject.com/png/683799-200.png');
+            }
 
             //Je persist 
             $manager->persist($tricks);
@@ -63,15 +70,14 @@ class TricksController extends AbstractController
             );
 
             //Redirection 
-            return $this->redirectToRoute('tricks',[
-                'id'=> $tricks->getId()
+            return $this->redirectToRoute('tricks', [
+                'id' => $tricks->getId()
             ]);
-
         }
-        
+
         //Affichage de la vue
-        return $this->render('tricks/tricks_add.html.twig',[
-             'form'=> $form->createView(),
+        return $this->render('tricks/tricks_add.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 
@@ -112,7 +118,7 @@ class TricksController extends AbstractController
             $this->addFlash(
                 'success',
                 "Commentaire ajouté !"
-            );           
+            );
         }
 
         //J'affiche la vue
@@ -140,14 +146,15 @@ class TricksController extends AbstractController
      */
     public function editFigure(Tricks $tricks, Request $request, EntityManagerInterface $manager)
     {
-         //Je crée le formulaire 
-         $form = $this->createForm(FigureType::class, $tricks);  
-         //Je lance la requete 
-         $form->handleRequest($request);
 
-         //Je vérifie le formulaire 
-        if($form->isSubmitted() && $form->isValid()){
-            
+        //Je crée le formulaire 
+        $form = $this->createForm(FigureType::class, $tricks);
+        //Je lance la requete 
+        $form->handleRequest($request);
+
+        //Je vérifie le formulaire 
+        if ($form->isSubmitted() && $form->isValid()) {
+
             //Je boucle sur les images du formulaire
             foreach ($tricks->getImages() as $image) {
                 $image->setIdTricks($tricks);
@@ -158,8 +165,13 @@ class TricksController extends AbstractController
                 $video->setIdTricks($tricks);
                 $manager->persist($video);
             }
-            //Je lie le tricks à l'utilisateur connecté 
-            $tricks->setIdAuthor($this->getUser());
+
+            //Je récupère la date             
+            $editDate = new \DateTime('NOW');
+            //Je lie le tricks à l'utilisateur connecté et je mets à jour la date
+            $tricks->setIdAuthor($this->getUser())
+                   ->setEditDate($editDate)
+            ;
 
             //Je persist 
             $manager->persist($tricks);
@@ -173,15 +185,14 @@ class TricksController extends AbstractController
             );
 
             //Redirection 
-            return $this->redirectToRoute('tricks',[
-                'id'=>$tricks->getId()
+            return $this->redirectToRoute('tricks', [
+                'id' => $tricks->getId()
             ]);
-
         }
 
-        return $this->render('tricks/tricks_edit.html.twig',[        
-            'form'=>$form->createView(),
-            'figure'=> $tricks
+        return $this->render('tricks/tricks_edit.html.twig', [
+            'form' => $form->createView(),
+            'figure' => $tricks
         ]);
     }
 

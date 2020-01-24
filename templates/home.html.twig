@@ -7,14 +7,14 @@
 	<header class="masthead">
 		<div class="container d-flex h-100 align-items-center">
 			<div class="mx-auto text-center">
-			{% include "partials/flash.html.twig" %}
+				{% include "partials/flash.html.twig" %}
 				<h1 class="mx-auto my-0 text-uppercase">SnowTricks</h1>
 				<div class="text-white-50 mx-auto mt-5 mb-5 embed-responsive embed-responsive-16by9">
 
 					<iframe width="300" height="200" src="https://www.youtube.com/embed/KoHzXi7Usl8" frameborder="0" allow="accelerometer; autoplay=1; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 				</div>
-				
+
 				<div class="container-fluid mt-auto ">
 					<a href="#home-tricks" class="js-scroll-trigger">
 						<i class="fas fa-arrow-down fa-3x"></i>
@@ -62,16 +62,17 @@
 								<p>
 									<strong>{{figure.name}}</strong>
 								</p>
-								{% if app.user and app.user == figure.idAuthor %}								
-								<p>
-									<a href=" {{ path ('tricks_edit', { 'id' : figure.id }) }} ">
-										<i class="fas fa-pen"></i>
-									</a>
-									<a href="{{ path ('tricks_delete', { 'id' : figure.id }) }}">
-										<i class="fas fa-trash"></i>
-									</a>
-								</p>
+								{% if app.user and app.user == figure.idAuthor %}
+									<p>
+										<a href=" {{ path ('tricks_edit', { 'id' : figure.id }) }} ">
+											<i class="fas fa-pen"></i>
+										</a>
+										<a href="" data-toggle="modal" data-target="#alert">
+											<i class="fas fa-trash"></i>
+										</a>
+									</p>
 								{% endif %}
+									{% include "partials/modal.html.twig" %}
 							</div>
 							<div class="card-body">
 								{{figure.sentence}}...

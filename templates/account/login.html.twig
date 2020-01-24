@@ -15,13 +15,13 @@
 							&nbsp;
 						</div>
 						<div class="col-md-6 mt-5 bg-dark py-3">
-                        {% if hasError %}
-                            <div class="alert alert-danger">
-                                Le nom d'utilisateur ou le mot de passe est invalide !
-                            </div>
-                        {% endif %}
-                        
-							<form action=" {{path('account_login')}} " method = "post">
+							{% if hasError %}
+								<div class="alert alert-danger">
+									Le nom d'utilisateur ou le mot de passe est invalide !
+								</div>
+							{% endif %}
+
+							<form action=" {{path('account_login')}} " method="post">
 								<div class="form-group">
 									<label for="email"></label>
 									<input type="email" name="_username" id="email" placeholder="Adresse email..." class="form-control" value=" {{username}} " required>
@@ -33,11 +33,13 @@
 								<div class="form-group">
 									<button type="submit" class="btn btn-success">Connexion</button>
 								</div>
+								<a href=" {{path('account_register')}} "> <small>Inscription</small> </a> <br>
+								<a href=""> <small>Mot de passe oublié ?</small> </a>
 							</form>
 
 						</div>
 					</div>
-				</div>				
+				</div>
 			</div>
 		</div>
 	</header>

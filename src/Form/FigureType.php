@@ -29,6 +29,7 @@ class FigureType extends AbstractType
             ])
             ->add('picture', UrlType::class,[
                 'label'=> "Photo de présentation",
+                'required'=>false,
                 'attr'=> [
                     'placeholder'=> " Exemple : https://image.shutterstock.com/image-photo/snowboarder-jumping-through-air-deep-260nw-256525987.jpg"
                 ]

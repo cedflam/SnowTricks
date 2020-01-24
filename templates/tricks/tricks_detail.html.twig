@@ -7,8 +7,18 @@
 	<header class="masthead2">
 		<div class="container d-flex h-100 align-items-center">
 			<div class="mx-auto text-center">
-			{% include "partials/flash.html.twig" %}
+				{% include "partials/flash.html.twig" %}
 				<h1 class="mx-auto my-0 text-uppercase">{{figure.name}}</h1>
+				{% if app.user and app.user == figure.idAuthor %}
+					<div class="container">
+						<a href=" {{ path ('tricks_edit', { 'id' : figure.id }) }} ">
+							<i class="fas fa-pen"></i>
+						</a>
+						<a href="" data-toggle="modal" data-target="#alert">
+							<i class="fas fa-trash"></i>
+						</a>
+					</div>
+				{% endif %}
 				<div class="row d-flex justify-content-center mt-5">
 					<p class="text-white">
 						{{figure.contentTricks}}</p>
@@ -63,7 +73,6 @@
 				</div>
 
 
-		
 			</div>
 
 		</div>
@@ -112,8 +121,7 @@
 
 			</div>
 		</div>
-		{# Modal #}
-
+		{% include "partials/modal.html.twig" %}
 
 	</body>
 
