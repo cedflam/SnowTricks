@@ -81,7 +81,7 @@
 
 	<body class="">
 		<div id="bg-comments-tricks">
-			{% if app.user %}
+			{% if app.user and app.user.token == null %}
 				<h1 class=" text-white text-center p-2">
 					<i class="fas fa-snowboarding"></i>
 					<strong>EXPRIMEZ VOUS SUR CE TRICKS !</strong>

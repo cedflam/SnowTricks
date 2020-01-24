@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+{% block title %}Compte validé !
+{% endblock %}
+
+{% block body %}
+
+	<!-- Header -->
+	<body class="masthead">
+		<div class="container d-flex h-100 align-items-center mb-5">
+			<div class="mx-auto">
+				<h1 class="mx-auto my-0 text-uppercase text-center">Votre compte à été validé !</h1>
+				<div class="container mt-3  d-flex justify-content-center text-white ">
+					<div class="col-md-8 mb-5 mt-5 d-flex justify-content-center ">						
+						<a href=" {{ path ('account_login')}} " class="btn btn-success"> Se connecter </a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+{% endblock %}

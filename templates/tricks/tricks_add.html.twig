@@ -6,7 +6,7 @@
 {% form_theme form 'tricks/_collection.html.twig' %}
 
 {% block body %}
-{% if app.user %}
+{% if app.user and app.user.token == null %}
 
 	<!-- Header -->
 	<header class="masthead">
@@ -52,7 +52,7 @@
 			<div class="mx-auto text-center">
 				<h1 class="mx-auto my-0 text-uppercase">Accès interdit</h1>
 				<div class="text-white-50 mx-auto bg-danger p-5 mt-3">
-					<h3>Vous devez être connecté pour afficher cette page !</h3>
+					<h3>Vous devez être connecté ou avoir un compte valide pour afficher cette page !</h3>
 				</div>
 				
 			</div>

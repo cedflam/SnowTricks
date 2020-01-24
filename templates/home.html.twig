@@ -8,6 +8,9 @@
 		<div class="container d-flex h-100 align-items-center">
 			<div class="mx-auto text-center">
 				{% include "partials/flash.html.twig" %}
+				{% if  app.user and not app.user.token == null  %}				
+				<p class = "alert alert-danger">Votre compte n'a pas été validé, vos droits sont les mêmes qu'un visiteur classique !</p>
+				{% endif %}
 				<h1 class="mx-auto my-0 text-uppercase">SnowTricks</h1>
 				<div class="text-white-50 mx-auto mt-5 mb-5 embed-responsive embed-responsive-16by9">
 
