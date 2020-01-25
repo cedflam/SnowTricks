@@ -54,9 +54,9 @@
 					</div>
 
 				</div>
-				<div class="mt-3 d-flex justify-content-center row">
+				<div class="mt-3 d-flex justify-content-center row ">
 					{% for image in images %}
-						<div class="col-md-3  ml-5 mt-2">
+						<div class="col-md-3  ml-5 mt-2 gallery-detail hidden">
 
 							<div class="text-white-50  img-fluid ">
 								<a href="{{image.addressImg}}">
@@ -66,10 +66,15 @@
 						</div>
 					{% endfor %}
 					{% for video in videos %}
-						<div class="col-md-3 mt-2 ml-5 embed-responsive embed-responsive-16by9">
+						<div class="col-md-3 mt-2 ml-5 embed-responsive embed-responsive-16by9 gallery-detail hidden">
 							<iframe width="560" height="315" src="{{video.addressVid}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 						</div>
 					{% endfor %}
+				</div>
+				<div class="container-fluid text-center mt-3">
+					<a href="#home-tricks" class="btn btn-primary" id="loadMoreMedia">
+						Afficher les médias
+					</a>
 				</div>
 
 

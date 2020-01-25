@@ -8,7 +8,6 @@ use App\Form\RegistrationType;
 use App\Repository\UserRepository;
 use Symfony\Component\Mime\Email;
 use Doctrine\ORM\EntityManagerInterface;
-use PhpParser\Node\Expr\Isset_;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,9 +30,11 @@ class AccountController extends AbstractController
      */
     public function login(AuthenticationUtils $utils, UserRepository $repo, Request $request)
     {
+        //Permet d'afficher un message d'erreur en ca sde saisie erronnée
         $error = $utils->getLastAuthenticationError();
+        //Conserve l'adresse mail an cas d'erreur 
         $username = $utils->getLastUsername();
-
+        //Affichage de la vue 
         return $this->render('account/login.html.twig', [
             'hasError' => $error !== null,
             'username' => $username
@@ -85,7 +86,7 @@ class AccountController extends AbstractController
             //!!! Enlever le type String ainsi que le Self du getter et setter concerné
             //Je récupère le nom de l'image
             $file = $user->getImgProfile();
-            //Si le champs est vide je mets une l'image par défaut
+            //Si le champs est vide j'attribue une image par défaut
             if (empty($file)) {
 
                 $fileName = ('profilDefaut.png');
@@ -133,7 +134,7 @@ class AccountController extends AbstractController
                 return $this->redirectToRoute('home');
             }
 
-            //Je génère l'url 
+            //Je génère l'url à envoyer à l'utilisateur
             $url = $this->generateUrl('account_valid', array('token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
             //Je crée le message
             $email = (new Email())
@@ -166,6 +167,7 @@ class AccountController extends AbstractController
 
     /**
      * Fonction qui gère l'envoi d'un token à l'utilisateur par mail
+     * lors de l'oubli de son mot de passe
      * 
      * @Route("/forgot", name="account_forgot")
      *
@@ -311,7 +313,6 @@ class AccountController extends AbstractController
         UserRepository $repo,
         EntityManagerInterface $manager
     ) {
-
 
         //Je récupère le token
         $user = $repo->findOneBy(['token' => $token]);
