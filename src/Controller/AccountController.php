@@ -40,7 +40,7 @@ class AccountController extends AbstractController
             'username' => $username
         ]);
     }
-
+/********************************************************************************************** */
     /**
      * Permet de se deconnecter
      * 
@@ -53,7 +53,7 @@ class AccountController extends AbstractController
         //...géré par symfony
     }
 
-
+/*********************************************************************************************** */
     /**
      * Fonction qui permet de s'inscrire
      * 
@@ -165,6 +165,8 @@ class AccountController extends AbstractController
         ]);
     }
 
+    /************************************************************************************************** */
+
     /**
      * Fonction qui gère l'envoi d'un token à l'utilisateur par mail
      * lors de l'oubli de son mot de passe
@@ -244,6 +246,8 @@ class AccountController extends AbstractController
         return $this->render('account/forgot_password.html.twig');
     }
 
+    /************************************************************************************************* */
+
     /**
      * Fonction qui permet de réinitialiser un mot de passe
      * 
@@ -295,7 +299,7 @@ class AccountController extends AbstractController
         return $this->render('account/reset_password.html.twig');
     }
 
-
+/********************************************************************************************* */
     /**
      * Permet de valider l'inscription d'un utilisateur
      * 
