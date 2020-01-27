@@ -15,7 +15,7 @@ SnowTricks is a sharing website about snowboard tricks. This project was built d
 ## Install
  1. Clone or download the repository into your environment.   
  2. Run "composer install" in terminal
- 3. Install the database (php bin/console doctrine:database:create) and load migration (php bin/console doctrine:migrations:migrate)
+ 3. Install the database (php bin/console doctrine:database:create) and load migration (php bin/console doctrine:migrations:migrate) or import directly snowtricks.sql with phpMyAdmin.
  
      
  NOTE : 
