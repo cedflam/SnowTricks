@@ -28,7 +28,7 @@ class AccountController extends AbstractController
      * 
      * @return Response 
      */
-    public function login(AuthenticationUtils $utils, UserRepository $repo, Request $request)
+    public function login(AuthenticationUtils $utils)
     {
         //Permet d'afficher un message d'erreur en ca sde saisie erronnée
         $error = $utils->getLastAuthenticationError();
