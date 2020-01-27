@@ -81,6 +81,7 @@ class TricksController extends AbstractController
         ]);
     }
 
+    /***************************************************************************** */
 
     /**
      * Permet d'afficher le détail d'une figure 
@@ -132,7 +133,7 @@ class TricksController extends AbstractController
         ]);
     }
 
-
+    /********************************************************************************** */
 
     /**
      * Permet de modifier une figure
@@ -196,6 +197,7 @@ class TricksController extends AbstractController
         ]);
     }
 
+    /********************************************************************* */
 
     /**
      * Permet de supprimer une figure 
