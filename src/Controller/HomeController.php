@@ -2,12 +2,7 @@
 
 namespace App\Controller;
 
-
-
-
-use App\Entity\Category;
 use App\Repository\TricksRepository;
-use Doctrine\ORM\Mapping\OrderBy;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 

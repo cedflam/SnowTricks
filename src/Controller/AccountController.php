@@ -88,7 +88,7 @@ class AccountController extends AbstractController
             $file = $user->getImgProfile();
             //Si le champs est vide j'attribue une image par défaut
             if (empty($file)) {
-
+                //Image par défaut
                 $fileName = ('profilDefaut.png');
             } else {
 
@@ -155,11 +155,11 @@ class AccountController extends AbstractController
                 "Il ne reste plus qu'à valider votre inscription ! Consultez vos emails !"
             );
 
-            //Redirection vers la page de connexion
+            //Redirection vers la page d'accueil
             return $this->redirectToRoute('home');
         }
 
-        //J'affiche la page 
+        //J'affiche la page d'inscription
         return $this->render('account/registration.html.twig', [
             'form' => $form->createView()
         ]);
@@ -191,14 +191,10 @@ class AccountController extends AbstractController
         //condition
         if ($request->isMethod('POST')) {
 
-
             //Je récupère l'email posté
             $email = $request->get('email');
-
             //Je vais chercher l'email de l'user avec l'email posté
             $user = $repo->findOneBy(['email' => $email]);
-
-
             //Condition si l'email n'est pas trouvé
             if ($user === null) {
                 //Message flash
@@ -232,12 +228,12 @@ class AccountController extends AbstractController
                 ->from('cedflam@gmail.com')
                 ->to($user->getEmail())
                 ->subject("Réinitialisation de votre mot de passe sur SnowTricks !")
-                ->text("Bonjour, voici le token permettant de réinitialiser votre mot de passe : " . $url);
+                ->text("Bonjour, voici le lien permettant de réinitialiser votre mot de passe : " . $url);
             //J'envoie le message
             $mailer->send($email);
 
             //Message flash 
-            $this->addFlash('success', "Consultez vos emails !");
+            $this->addFlash('success', "Un mail vient de vous être envoyé pour finaliser la procédure !");
 
             //Redirection
             return $this->redirectToRoute('home');
@@ -305,14 +301,12 @@ class AccountController extends AbstractController
      * 
      * @Route("/validated/{token}", name="account_valid")
      *
-     * @param Request $request
      * @param Strind $token
      * @param UserRepository $repo
      * @param EntityManagerInterface $manager
      * @return void
      */
     public function validRegister(
-        Request $request,
         $token,
         UserRepository $repo,
         EntityManagerInterface $manager
@@ -332,7 +326,7 @@ class AccountController extends AbstractController
         //J'enregistre en bdd
         $manager->flush();
 
-
+        //J'affiche la vue
         return $this->render('account/account_valid.html.twig');
     }
 }

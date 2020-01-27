@@ -9,9 +9,7 @@ use App\Entity\Video;
 use App\Entity\Tricks;
 use App\Entity\Comment;
 use App\Entity\Category;
-use PhpParser\Node\Expr\Cast\String_;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use phpDocumentor\Reflection\Types\Integer;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
