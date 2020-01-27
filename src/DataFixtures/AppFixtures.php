@@ -89,7 +89,6 @@ class AppFixtures extends Fixture
             $manager->persist($tricks);
         }
 
-
         /*------------------------Je traite les commentaires------------------------*/
         //Propriété
         $date = new DateTime('2020/01/16');
@@ -126,8 +125,6 @@ class AppFixtures extends Fixture
             $manager->persist($video);
         }
         
-
-
         $manager->flush();
     }
 }
