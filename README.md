@@ -21,5 +21,5 @@ SnowTricks is a sharing website about snowboard tricks. This project was built d
  NOTE : 
 parameters:
     env(DATABASE_URL): 'mysql://db_user:db_password@127.0.0.1:3306/db_name'
-    connexion with user : email = max@gmail.com pass = password
+   ## connexion with user : email = max@gmail.com pass = password
  
