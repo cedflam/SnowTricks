@@ -6,6 +6,8 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationType;
 use App\Repository\UserRepository;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mime\Email;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,10 +25,11 @@ class AccountController extends AbstractController
 {
     /**
      * Permet d'afficher et de gérer le formulaire de connexion
-     * 
+     *
      * @Route("/login", name="account_login")
-     * 
-     * @return Response 
+     *
+     * @param AuthenticationUtils $utils
+     * @return Response
      */
     public function login(AuthenticationUtils $utils)
     {
@@ -56,13 +59,16 @@ class AccountController extends AbstractController
 /*********************************************************************************************** */
     /**
      * Fonction qui permet de s'inscrire
-     * 
+     *
      * @Route("/register", name="account_register")
      *
      * @param Request $request
      * @param EntityManagerInterface $manager
      * @param UserPasswordEncoderInterface $encoder
+     * @param TokenGeneratorInterface $tokenGenerator
+     * @param MailerInterface $mailer
      * @return Response
+     * @throws TransportExceptionInterface
      */
     public function register(
         Request $request,
@@ -170,7 +176,7 @@ class AccountController extends AbstractController
     /**
      * Fonction qui gère l'envoi d'un token à l'utilisateur par mail
      * lors de l'oubli de son mot de passe
-     * 
+     *
      * @Route("/forgot", name="account_forgot")
      *
      * @param Request $request
@@ -179,6 +185,7 @@ class AccountController extends AbstractController
      * @param EntityManagerInterface $manager
      * @param UserRepository $repo
      * @return Response
+     * @throws TransportExceptionInterface
      */
     public function forgotPassword(
         Request $request,
@@ -298,13 +305,13 @@ class AccountController extends AbstractController
 /********************************************************************************************* */
     /**
      * Permet de valider l'inscription d'un utilisateur
-     * 
+     *
      * @Route("/validated/{token}", name="account_valid")
      *
      * @param Strind $token
      * @param UserRepository $repo
      * @param EntityManagerInterface $manager
-     * @return void
+     * @return RedirectResponse|Response
      */
     public function validRegister(
         $token,

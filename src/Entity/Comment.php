@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -25,6 +26,7 @@ class Comment
      *  minMessage="Votre commentaire doit faire plus de 3 caractères",
      *  maxMessage="Votre commentaire doit faire moins de 50 caractères"
      * )
+     *
      */
     private $contentComment;
 
@@ -46,11 +48,12 @@ class Comment
 
     /**
      * Callback appelé à chaque fois que l'on crée un commentaire
-     * 
+     *
      * @ORM\PrePersist
      * @ORM\PreUpdate
      *
      * @return void
+     * @throws Exception
      */
     public function __construct(){
             

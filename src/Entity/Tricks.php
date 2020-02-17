@@ -31,6 +31,7 @@ class Tricks
      *  minMessage="Le nom de la figure doit faire plus de 3 caractères",
      *  maxMessage="Le nom de la figure doit faire moins de 30 caractères"
      * )
+     *
      */
     private $name;
 
@@ -42,6 +43,7 @@ class Tricks
      *  minMessage="Le contenu doit faire plus de 50 caractères",
      *  maxMessage="Le contenu doit faire moins de 500 caractères"
      * )
+     *
      */
     private $contentTricks;
 
@@ -59,6 +61,7 @@ class Tricks
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="idTricks", orphanRemoval=true)
+     *
      */
     private $comments;
 
@@ -70,7 +73,7 @@ class Tricks
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Video", mappedBy="idTricks", orphanRemoval=true)
-     * Assert\Valid()
+     * @Assert\Valid()
      */
     private $videos;
 
@@ -82,6 +85,7 @@ class Tricks
      *  minMessage="L'introduction doit faire plus de 10 caractères",
      *  maxMessage="L'introduction dot faire moins de 50 caractères"
      * )
+     *
      */
     private $sentence;
 

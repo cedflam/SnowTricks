@@ -8,6 +8,7 @@ use App\Form\FigureType;
 use App\Form\CommentType;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -38,7 +39,6 @@ class TricksController extends AbstractController
         $form->handleRequest($request);
         //Je vérifie le formulaire 
         if ($form->isSubmitted() && $form->isValid()) {
-
             //Je boucle sur les images du formulaire
             foreach ($tricks->getImages() as $image) {
                 $image->setIdTricks($tricks);
@@ -75,7 +75,7 @@ class TricksController extends AbstractController
             ]);
         }
 
-        //Affichage de la vue
+        //Affichage de la vue du formulaire
         return $this->render('tricks/tricks_add.html.twig', [
             'form' => $form->createView(),
         ]);
@@ -137,13 +137,14 @@ class TricksController extends AbstractController
 
     /**
      * Permet de modifier une figure
-     * 
+     *
      * @Route("/tricks/{id}/edit", name="tricks_edit")
      *
      * @param Tricks $tricks
      * @param Request $request
      * @param EntityManagerInterface $manager
      * @return Response
+     * @throws Exception
      */
     public function editFigure(Tricks $tricks, Request $request, EntityManagerInterface $manager)
     {
