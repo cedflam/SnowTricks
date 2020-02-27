@@ -84,8 +84,8 @@ class TricksController extends AbstractController
     /***************************************************************************** */
 
     /**
-     * Permet d'afficher le détail d'une figure 
-     * 
+     * Permet d'afficher le détail d'une figure
+     *
      * @Route("/tricks/{id}", name="tricks")
      *
      * @param Request $request
@@ -93,6 +93,7 @@ class TricksController extends AbstractController
      * @param CommentRepository $commentRepo
      * @param Tricks $tricks
      * @return Response
+     * @throws Exception
      */
     public function findFigure(Request $request, EntityManagerInterface $manager, CommentRepository $commentRepo, Tricks $tricks)
     {
@@ -211,17 +212,24 @@ class TricksController extends AbstractController
      */
     public function deleteFigure(Tricks $tricks, EntityManagerInterface $manager)
     {
-        //Demande de suppression de la figure passée en paramètre
-        $manager->remove($tricks);
-        //Je lance la requete de suppression 
-        $manager->flush();
-        //J'affiche un message flash
-        $this->addFlash(
-            'success',
-            "La figure à bien été supprimée !"
+        if($this->getUser() == $tricks->getIdAuthor()) {
+            //Demande de suppression de la figure passée en paramètre
+            $manager->remove($tricks);
+            //Je lance la requete de suppression
+            $manager->flush();
+            //J'affiche un message flash
+            $this->addFlash(
+                'success',
+                "La figure à bien été supprimée !"
+            );
+            //J'affiche la vue
+            return $this->redirectToRoute('home');
+        }
+        //Message d'erreur
+        $this->addFlash('danger',
+                                "Vous n'êtes pas l'auteur de cette figure, accès interdit !"
         );
-
-        //J'affiche la vue
+        //Redirection
         return $this->redirectToRoute('home');
     }
 }
